@@ -37,32 +37,23 @@ void AFloatingActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector Loc = BodyMesh->GetRelativeLocation();	// FVector 타입의 Loc 변수에 BodyMesh의 현재 위치를 저장
+	/*BodyMesh->AddRelativeLocation(DeltaTime * Speed * FVector::UpVector);
 
-	BodyMesh->AddRelativeRotation(FRotator(0.0f, SpinSpeed * DeltaTime, 0.0f));	// BodyMesh의 회전 방향을 Z축을 기준으로 틱당 SpinSpeed만큼 회전 
+	if (BodyMesh->GetRelativeLocation().Z > MoveHeight
+		|| BodyMesh->GetRelativeLocation().Z < 0)
+	{
+		Speed *= -1.0f;
+	}*/
 
-	if (GoingUp)	// 계속 올라간다면
-	{
-		Loc.Z += DeltaTime * Speed;	//	Loc의 Z의 값이 DeltaTime * Speed만큼 더함
-		BodyMesh->AddRelativeLocation(DeltaTime * Speed * FVector::UpVector);	// BodyMesh의 현재 위치를 DeltaTime * Speed * 위 방향으로 값을 더함
-		if (MoveHeight <= Loc.Z)	// MoveHeight 보다 Loc의 Z 값이 커지거나 같아지면
-		{
-			GoingUp = false;	// 그만 올라가라
-		}
-	}
-	else
-	{
-		Loc.Z -= DeltaTime * Speed;	// Loc의 Z의 값이 DeltaTime * Speed만큼 뺌
-		BodyMesh->AddRelativeLocation(DeltaTime * Speed * FVector::DownVector);	// BodyMesh의 현재 위치를 DeltaTime * Speed * 아래 방향으로 값을 더함
-		if (Loc.Z <= 0)	// Loc의 Z의 값이 0보다 작아지거나 같아지면
-		{
-			GoingUp = true;	// 다시 올라가라
-		}
-	}
-	/*CosSpeed += DeltaTime * Speed;
-	Height += FMath::Cos(CosSpeed) + 1;
-	UE_LOG(LogTemp, Warning, TEXT("Height: %.3f"), Height);
-	BodyMesh->SetRelativeLocation(Height * MoveHeight * FVector::ZAxisVector);*/
+	ElapsedTime += DeltaTime;
+
+	// Cos
+	float cosValue = FMath::Cos(ElapsedTime);	// 1 -> -1 -> 1
+	cosValue += 1;				// 2 -> 0 -> 2
+	cosValue *= 0.5f;			// 1 -> 0 -> 1
+	cosValue = 1 - cosValue;	// 0 -> 1 -> 0
+
+	BodyMesh->SetRelativeLocation(FVector(0, 0, cosValue));
 
 
 }
