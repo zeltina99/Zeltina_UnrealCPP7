@@ -32,10 +32,8 @@ void AFloatingActor::BeginPlay()
 	//BodyMesh->AddRelativeLocation
 }
 
-// Called every frame
-void AFloatingActor::Tick(float DeltaTime)
+void AFloatingActor::OnFloatingMeshUpdate(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
 
 	/*BodyMesh->AddRelativeLocation(DeltaTime * Speed * FVector::UpVector);
 
@@ -45,16 +43,24 @@ void AFloatingActor::Tick(float DeltaTime)
 		Speed *= -1.0f;
 	}*/
 
-	ElapsedTime += DeltaTime;
+	ElapsedTime += DeltaTime;	// 시간 누적시키기
+	//UE_LOG(LogTemp, Log, TEXT("Elapsed Time : %.2f"), ElapsedTime);
 
-	// Cos
+	// Cos 함수 이용해서 위치기준 업데이트
 	float cosValue = FMath::Cos(ElapsedTime);	// 1 -> -1 -> 1
 	cosValue += 1;				// 2 -> 0 -> 2
 	cosValue *= 0.5f;			// 1 -> 0 -> 1
 	cosValue = 1 - cosValue;	// 0 -> 1 -> 0
 
-	BodyMesh->SetRelativeLocation(FVector(0, 0, cosValue));
+	BodyMesh->SetRelativeLocation(FVector(0, 0, cosValue * MoveHeight));	// 위치 적용
+	BodyMesh->AddRelativeRotation(FRotator(0, SpinSpeed * DeltaTime, 0));	// 회전 적용
+}
 
+// Called every frame
+void AFloatingActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	OnFloatingMeshUpdate(DeltaTime);
 
 }
 

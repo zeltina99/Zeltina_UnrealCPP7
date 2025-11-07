@@ -19,6 +19,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// 스태틱 매시 움직임 업데이트하는 함수
+	virtual void OnFloatingMeshUpdate(float DeltaTime);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -31,6 +33,9 @@ public:
 	// 최대로 올라갈 높이
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float MoveHeight = 300.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float SpinSpeed = 200.0f;
 
 
 protected:
