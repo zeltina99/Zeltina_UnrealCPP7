@@ -30,6 +30,9 @@ public:
 	float MoveHeight = 200.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float SpinSpeed = 100.0f;
+	float CosSpeed = 0.0f;
+	float Height = 0.0f;
+
 	bool GoingUp = true;
 
 

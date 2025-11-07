@@ -59,5 +59,11 @@ void AFloatingActor::Tick(float DeltaTime)
 			GoingUp = true;	// 다시 올라가라
 		}
 	}
+	/*CosSpeed += DeltaTime * Speed;
+	Height += FMath::Cos(CosSpeed) + 1;
+	UE_LOG(LogTemp, Warning, TEXT("Height: %.3f"), Height);
+	BodyMesh->SetRelativeLocation(Height * MoveHeight * FVector::ZAxisVector);*/
+
+
 }
 
