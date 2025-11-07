@@ -81,7 +81,7 @@ void ATestActor::Tick(float DeltaTime)
 	 - 일반 클래스용
 	  - TSharedPtr, TWeakPtr, TUniquePtr
 	 - UObject용
-	  - TObjectPtr, TWeakObjectPtr, TSoftPtr, TSubclassOf, TSoftClassPtr
+	  - TObjectPtr, TWeakObjectPtr, TSoftObjectPtr, TSubclassOf, TSoftClassPtr
 
 	언리얼 핵심 클래스
 	 - UObject
